@@ -99,7 +99,7 @@ defmodule ChatApi.Workers.SendConversationReplyEmail do
 
   @spec enabled?(map()) :: boolean()
   def enabled?(%{"account_id" => account_id}) do
-    has_valid_email_domain?() &&
+    # has_valid_email_domain?() &&
       reply_emails_enabled?() &&
       account_reply_emails_enabled?(account_id)
   end
@@ -118,7 +118,7 @@ defmodule ChatApi.Workers.SendConversationReplyEmail do
 
   @spec has_valid_email_domain? :: boolean()
   def has_valid_email_domain?() do
-    System.get_env("DOMAIN") == "mail.heypapercups.io"
+    System.get_env("DOMAIN") == "dsuite.com.br"
   end
 
   @spec reply_emails_enabled? :: boolean()
