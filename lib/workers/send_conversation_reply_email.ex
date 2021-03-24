@@ -99,7 +99,7 @@ defmodule ChatApi.Workers.SendConversationReplyEmail do
 
   @spec enabled?(map()) :: boolean()
   def enabled?(%{"account_id" => account_id}) do
-    has_valid_email_domain?() &&
+    # has_valid_email_domain?() &&
       reply_emails_enabled?() &&
       account_reply_emails_enabled?(account_id)
   end
