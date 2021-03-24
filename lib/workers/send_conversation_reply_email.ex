@@ -118,7 +118,8 @@ defmodule ChatApi.Workers.SendConversationReplyEmail do
 
   @spec has_valid_email_domain? :: boolean()
   def has_valid_email_domain?() do
-    System.get_env("DOMAIN") == "mail.heypapercups.io"
+    # System.get_env("DOMAIN") == "mail.heypapercups.io"
+    _ -> true
   end
 
   @spec reply_emails_enabled? :: boolean()
