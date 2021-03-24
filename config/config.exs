@@ -117,7 +117,7 @@ config :chat_api, ChatApi.Mailers.Smtp,
   port: 1025,
   dkim: [
     s: smtp_dkim, d: domain,
-    private_key: {:pem_plain, smtp_dkim_key)}
+    private_key: {:pem_plain, smtp_dkim_key}
   ],
   retries: 2,
   no_mx_lookups: false
