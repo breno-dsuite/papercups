@@ -17,6 +17,7 @@ aws_secret_key = System.get_env("AWS_SECRET_ACCESS_KEY")
 bucket_name = System.get_env("BUCKET_NAME", "papercups-files")
 region = System.get_env("AWS_REGION")
 smtp_relay = System.get_env("SMTP_RELAY")
+smtp_port = System.get_env("SMTP_PORT")
 smtp_username = System.get_env("SMTP_USERNAME")
 smtp_password = System.get_env("SMTP_PASSWORD")
 smtp_dkim = System.get_env("SMTP_DKIM")
@@ -114,7 +115,7 @@ config :chat_api, ChatApi.Mailers.Smtp,
   ssl: true,
   tls: :always,
   auth: :always,
-  port: 1025,
+  port: smtp_port,
   dkim: [
     s: smtp_dkim, d: domain,
     private_key: {:pem_plain, smtp_dkim_key}
