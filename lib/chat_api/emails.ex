@@ -103,7 +103,7 @@ defmodule ChatApi.Emails do
     # TODO: Find a better solution besides try catch probably in config.exs setup an empty mailer that doesn't do anything
     try do
       if has_valid_to_addresses?(email) do
-        ChatApi.Mailers.Smtp.deliver(email)
+        ChatApi.Mailers.AmazonSES.deliver(email)
       else
         {:warning, "Skipped sending to potentially invalid email: #{inspect(email.to)}"}
       end
