@@ -16,6 +16,11 @@ aws_key_id = System.get_env("AWS_ACCESS_KEY_ID")
 aws_secret_key = System.get_env("AWS_SECRET_ACCESS_KEY")
 bucket_name = System.get_env("BUCKET_NAME", "papercups-files")
 region = System.get_env("AWS_REGION")
+smtp_relay = System.get_env("SMTP_RELAY")
+smtp_username = System.get_env("SMTP_USERNAME")
+smtp_password = System.get_env("SMTP_PASSWORD")
+smtp_dkim = System.get_env("SMTP_DKIM")
+smtp_dkim_key = System.get_env("SMTP_DKIM_KEY")
 
 config :chat_api,
   environment: Mix.env(),
@@ -100,6 +105,23 @@ config :chat_api, Oban,
     # {"0 * * * *", ChatApi.Workers.ArchiveStaleFreeTierConversations}
   ]
 
+# Configure SMTP
+config :chat_api, ChatApi.Mailers.Smtp,
+  adapter: Swoosh.Adapters.SMTP,
+  relay: smtp_relay,
+  username: smtp_username,
+  password: smtp_password,
+  ssl: true,
+  tls: :always,
+  auth: :always,
+  port: 1025,
+  dkim: [
+    s: smtp_dkim, d: domain,
+    private_key: {:pem_plain, smtp_dkim_key)}
+  ],
+  retries: 2,
+  no_mx_lookups: false
+  
 # Configure Mailgun
 config :chat_api, ChatApi.Mailers.Mailgun,
   adapter: Swoosh.Adapters.Mailgun,
