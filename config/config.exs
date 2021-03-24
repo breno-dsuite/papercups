@@ -22,6 +22,9 @@ smtp_username = System.get_env("SMTP_USERNAME")
 smtp_password = System.get_env("SMTP_PASSWORD")
 smtp_dkim = System.get_env("SMTP_DKIM")
 smtp_dkim_key = System.get_env("SMTP_DKIM_KEY")
+ses_region = System.get_env("SES_REGION")
+ses_access_key = System.get_env("SES_ACCESS_KEY")
+ses_secret = System.get_env("SES_SECRET")
 
 config :chat_api,
   environment: Mix.env(),
@@ -122,7 +125,15 @@ config :chat_api, ChatApi.Mailers.Smtp,
   ],
   retries: 2,
   no_mx_lookups: false
-  
+
+# Configure SES
+config :chat_api, ChatApi.Mailers.AmazonSES,
+  adapter: Swoosh.Adapters.AmazonSES,
+  region: ses_region,
+  access_key: ses_access_key,
+  secret: ses_secret
+
+
 # Configure Mailgun
 config :chat_api, ChatApi.Mailers.Mailgun,
   adapter: Swoosh.Adapters.Mailgun,
